@@ -20,7 +20,11 @@ int main() {
     node1->left = NULL;
     node1->right = NULL;
 
-    char s2[1]="i";
+    displaySplit(*(node1));
+    printf("\n------------\n");
+
+
+    char s2[4]="xyz";
 
     insert(node1, s2, 4);
     return 0;

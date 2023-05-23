@@ -31,17 +31,24 @@ char indexs(Node* node, int i) {
 }
 
 void insert(Node *n, char *data, int index){
+    // printf("\nHell=%s", data);
+    // printf("\nIndex=%d", index);
+
     Node *root1=(Node *)malloc(sizeof(Node));
     root1=split(n, index);
     displaySplit(*(root1));
 
+    // printf("\nHell=%s", data);
+
+    printf("\n------------\n");
+
     Node *root2=(Node *)malloc(sizeof(Node));
-    root2=appendAtStart(root1->right, data, 1);
-    displaySplit(*(root2));
+    root2=appendAtStart(root1->right, data, strlen(data));
 
     root1->right=root2;
 
     displaySplit(*(root1));
+    displaySplit(*(root2));
 
 }
 
@@ -105,11 +112,21 @@ void displaySplit(Node root){
     Node *l=root.left;
     Node *r=root.right;
 
+    printf("\nRoot: ");
+    if(root.data){
+        printf("%s", root.data);
+        printf("\t%d", root.weight);
+    }
+
     printf("\nLeft: ");
-    printf("%s", l->data);
-    printf("\t%d", l->weight);
+    if(l){
+        printf("%s", l->data);
+        printf("\t%d", l->weight);
+    }
     printf("\nRight: ");
-    printf("%s", r->data);
-    printf("\t%d", r->weight);
+    if(r){
+        printf("%s", r->data);
+        printf("\t%d", r->weight);
+    }
 
 }
