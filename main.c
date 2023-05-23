@@ -22,6 +22,6 @@ int main() {
 
     char s2[1]="i";
 
-    insert(node1, s2, 7);
+    insert(node1, s2, 4);
     return 0;
 }

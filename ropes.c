@@ -38,6 +38,11 @@ void insert(Node *n, char *data, int index){
     Node *root2=(Node *)malloc(sizeof(Node));
     root2=appendAtStart(root1->right, data, 1);
     displaySplit(*(root2));
+
+    root1->right=root2;
+
+    displaySplit(*(root1));
+
 }
 
 Node* split(Node *n, int index){
