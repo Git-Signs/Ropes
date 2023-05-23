@@ -29,3 +29,82 @@ char indexs(Node* node, int i) {
         return indexs(node->right, i - node->left->weight);
     }
 }
+
+void insert(Node *n, char *data, int index){
+    Node *root1=(Node *)malloc(sizeof(Node));
+    root1=split(n, index);
+    displaySplit(*(root1));
+
+    Node *root2=(Node *)malloc(sizeof(Node));
+    root2=appendAtStart(root1->right, data, 1);
+    displaySplit(*(root2));
+}
+
+Node* split(Node *n, int index){
+    Node *root = (Node *)malloc(sizeof(Node));
+    root->data = NULL;
+
+    Node *left = (Node *)malloc(sizeof(Node));
+    char *leftData = (char *)malloc(sizeof(char) * index);
+
+    Node *right = (Node *)malloc(sizeof(Node));
+    char *rightData = (char *)malloc(sizeof(char) * (n->weight - index));
+
+    for (int i = 0; i < index; i++)
+    {
+        leftData[i] = n->data[i];
+    }
+    left->data = leftData;
+    left->weight = index;
+
+    for (int i = index; i < n->weight; i++)
+    {
+        rightData[i - index] = n->data[i];
+    }
+    right->data = rightData;
+    right->weight = n->weight - index;
+
+    root->weight = left->weight;
+    root->left = left;
+    root->right = right;
+
+    // displaySplit(root);
+    
+    return root;
+}
+
+Node *appendAtStart(Node *n, char *data, int index){
+    Node *root = (Node *)malloc(sizeof(Node));
+    root->data = NULL;
+    root->right = n;
+
+    Node *left = (Node *)malloc(sizeof(Node));
+    char *leftData = (char *)malloc(sizeof(char) * index);
+
+    for (int i = 0; i < index; i++)
+    {
+        leftData[i] = data[i];
+    }
+    left->data = leftData;
+    left->weight = index;
+
+    root->weight = left->weight;
+    root->left = left;
+
+    // displaySplit(root);
+
+    return root;
+}
+
+void displaySplit(Node root){
+    Node *l=root.left;
+    Node *r=root.right;
+
+    printf("\nLeft: ");
+    printf("%s", l->data);
+    printf("\t%d", l->weight);
+    printf("\nRight: ");
+    printf("%s", r->data);
+    printf("\t%d", r->weight);
+
+}
