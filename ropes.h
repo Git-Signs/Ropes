@@ -17,9 +17,10 @@ void concatR(Rope *r, Rope left, Rope right);
 
 char indexs(Node* node, int i);
 
-void insert(Node *n, char *data, int index);
-Node* split(Node *n, int index);
-Node *appendAtStart(Node *n, char *data, int index);
+void insert(Node **n, char *data, int index);
+Node *split(Node **n, int index);
+void appendAtStart(Node **n, char *data, int index);
 
 
 void displaySplit(Node root);
+void levelOrder(Node *root);
