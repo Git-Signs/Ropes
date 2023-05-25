@@ -32,20 +32,16 @@ char indexs(Node* node, int i) {
 
 void insert(Node **n, char *data, int index){
 
+    Rope nn;
+    createNode(&nn, data, strlen(data));
+    Rope t;
+    createNode(&t, NULL, 0);
+
     if (index==0){
-      Rope nn;
-      createNode(&nn, data, strlen(data));
-      Rope t;
-      createNode(&t, NULL, 0);
       concatR(&t, nn, *n);
       *n = t;
 
     } else if (lengthR(*n)){
-      
-      Rope nn;
-      createNode(&nn, data, strlen(data));
-      Rope t;
-      createNode(&t, NULL, 0);
       concatR(&t, *n, nn);
       *n = t;
 
@@ -61,13 +57,10 @@ void insert(Node **n, char *data, int index){
 
         temp=split(&temp, index);
         
-        Rope t;
-        createNode(&t, data, strlen(data));
-        
         Rope ts;
-        createNode(&t, data, strlen(data));
+        createNode(&nn, data, strlen(data));
         ts->right = temp->right;
-        concatR(&temp, temp->left, t);
+        concatR(&temp, temp->left, nn);
         concatR(&ts, temp, ts->right);
         
         printf("\n\nTemp in Insert: ");
