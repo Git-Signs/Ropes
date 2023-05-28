@@ -217,6 +217,7 @@ void LL_insert(Node **head, int line_num, Rope *s){
 
         (*head)->ref_count = 1;
         (*head)->next = NULL;
+        printf("Added\n");
         return;
     }else{  
         Node *temp = *head;
@@ -224,11 +225,14 @@ void LL_insert(Node **head, int line_num, Rope *s){
             temp = temp->next;
         }
         if(temp->line_num == line_num){
-            printf("Latest Version: %d\n", temp->ref_count);
+            if (!strcmp(Rope_to_str(temp->s[temp->ref_count-1]), Rope_to_str(s))){
+              printf("No Modification\n");
+              return;
+            }
+            printf("Modified\n");
             temp->s = realloc(temp->s, sizeof(Rope *) * (temp->ref_count + 1));
             temp->s[temp->ref_count] = s;
             temp->ref_count++;
-            printf("Latest Version Inserted!: %d\n", temp->ref_count);
             return;
         }else{
             Node *nn = (Node *)malloc(sizeof(Node));
@@ -238,6 +242,7 @@ void LL_insert(Node **head, int line_num, Rope *s){
             nn->ref_count = 1;
             nn->next = NULL;
             temp->next = nn;
+            printf("Modified\n");
             return;
         }
 
@@ -247,14 +252,10 @@ void LL_insert(Node **head, int line_num, Rope *s){
 void LL_complete_display(Node *head){
     Node *temp = head;
     while(temp != NULL){
-        printf("Line Number %d: \n", temp->line_num);
-        for(int i = 0; i < temp->ref_count; i++){
-            printf("Version No %d: ", i+1);
-            Rope_print(temp->s[i]);
-        }
-        printf("\n----------------\n");
+            Rope_print(temp->s[temp->ref_count - 1]);
         temp = temp->next;
     }
+    printf("EOF\n");
 }
 
 int *Rope_search(Node* head, char *search, int *t){
@@ -359,6 +360,178 @@ void print_clips(clipNode *clipboard){
     printf("\n%s", Rope_to_str(clipboard->s));
     clipboard = clipboard->next;
   }
-  printf("\nEOF");
+  printf("\nEOF\n");
   return;
+}
+
+
+// ======================Justafolk 
+//
+
+void insertLine(Node **n, Rope *s, int line_num){
+  Node *nn = malloc(sizeof(Node));
+  nn->s = malloc(sizeof(Rope *));
+  nn->s[0] = s;
+  nn->ref_count = 1;
+  nn->line_num = line_num;
+  nn->next = NULL;
+  if(!(*n)){
+    *n = nn;
+    printf("didnt Line Added\n");
+    return;
+  }
+  Node *temp = *n;
+  Node *p;
+
+  if (temp->line_num == line_num){
+    nn->next = temp;
+    *n = nn;
+    nn = nn->next;
+    while(nn){
+      nn->line_num++;
+      nn = nn->next;
+    }
+
+  }
+  while(temp && temp->line_num < line_num){
+    p = temp;
+    temp = temp->next;
+  }
+  if (!temp){
+    p->next = nn;
+    printf("Line Added\n");
+    return;
+  }
+  if (temp->line_num == line_num){
+    nn->next = temp;
+    p->next = nn;
+    nn = nn->next;
+    while(nn){
+      nn->line_num++;
+      nn = nn->next;
+    }
+  }
+  printf("Line Added\n");
+
+  return;
+
+}
+
+void rmLine(Node **n, int line_num){
+  if(!(*n)){
+    printf("Didnt Line Deleted\n");
+    return;
+  }
+  Node *temp = *n;
+  Node *p;
+
+  if (temp->line_num == line_num){
+    *n = (*n)->next;
+    temp = *n;
+    temp = temp->next;
+    while(temp){
+      temp->line_num--;
+      temp = temp->next;
+    }
+
+  }
+  while(temp && temp->line_num < line_num){
+    p = temp;
+    temp = temp->next;
+  }
+  if (!temp){
+    printf("Line Deleted\n");
+    return;
+  }
+  if (temp->line_num == line_num){
+    p->next = temp->next;
+    temp = temp->next;
+    while(temp){
+      temp->line_num--;
+      temp = temp->next;
+    }
+  }
+  printf("Line Deleted\n");
+
+  return;
+
+}
+
+void LL_file_save(FLNode **FLhead, Node *head){
+    if(*FLhead == NULL){
+        FLNode *nn = (FLNode *)malloc(sizeof(FLNode));
+        nn->version_num = 1;
+        nn->lines = malloc(sizeof(Rope *));
+        int index=0;
+        while(head){
+            int r=head->ref_count;
+            char *s = Rope_to_str(head->s[r-1]);
+            Rope *r1 = Rope_new(s, 2);
+
+            nn->lines = realloc(nn->lines, sizeof(Rope*)*(index + 1));
+            nn->lines[index]=r1;
+            index++;
+
+            head=head->next;
+        }
+        nn->line_count=index;
+        nn->next = NULL;
+        *FLhead = nn;
+        return;
+    }
+    
+    FLNode *temp = *FLhead;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+
+    FLNode *nn = (FLNode *)malloc(sizeof(FLNode));
+    nn->version_num = temp->version_num + 1;
+    nn->lines = malloc(sizeof(Rope *));
+    int index=0;
+    while(head){
+        int r=head->ref_count;
+        char *s = Rope_to_str(head->s[r-1]);
+        Rope *r1 = Rope_new(s, 2);
+
+        nn->lines = realloc(nn->lines, sizeof(Rope *)*(index + 1));
+        nn->lines[index]=r1;
+        index++;
+
+        head=head->next;
+    }
+    nn->line_count=index;
+    nn->next = NULL;
+    temp->next = nn;
+}
+
+
+void LL_retrieve_all(FLNode *fhead){
+  if(!fhead )
+    return;
+
+  while(fhead){
+    for(int i=0;i<fhead->line_count;i++){
+        Rope_print(fhead->lines[i]);
+    }
+    printf("EOX\n");
+    fhead = fhead->next;
+  }
+
+    printf("EOF\n");
+}
+void LL_retrieve_version(FLNode *fhead, int version_num){
+  if(!fhead )
+    return;
+
+  while(fhead->version_num < version_num){
+    fhead = fhead->next;
+  }
+
+  for(int i=0;i<fhead->line_count;i++){
+      Rope_print(fhead->lines[i]);
+  }
+
+  printf("EOF\n");
+
 }

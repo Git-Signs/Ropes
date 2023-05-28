@@ -3,9 +3,13 @@
 
 void For_calls(Node ***heads, clipNode **clipboard){
 
+
+  FLNode *fhead=NULL;
   int code;
   int choice;
 
+  int buf_id;
+  Node **head = *heads;
 
   while (1){
     //for buffer
@@ -40,7 +44,6 @@ void For_calls(Node ***heads, clipNode **clipboard){
           break;
         case 4:
           print_clips(*clipboard);
-
           break;
       }
 
@@ -54,76 +57,45 @@ void For_calls(Node ***heads, clipNode **clipboard){
       // 2 = Display
       // 3 = line add                                                                                                                 
       // 4 = line del 
-      // 6 = Get Substring
-      // 7 = Get Substring Position
+      // 5 = Save version 
+      // 6 = Retreive version 
 
 
+      scanf("%d", &buf_id);
+      int line_num;
+      int ver;
       switch (choice){
         case 1:
-          int buf_id;
-          scanf("%d", &buf_id);
-          int line_num;
           scanf("%d", &line_num);
-          printf("Enter string: ");
           char *s = malloc(sizeof(char) * 150);
           scanf(" %[^\n]s", s);
           Rope *r = Rope_new(s, 2);
-          LL_insert(heads, line_num, r);
-
-          fflush(stdout);
+          LL_insert(&head[buf_id], line_num, r);
           break;
         case 2:
-          printf("Enter line number: ");
-          int line_num2;
-          scanf("%d", &line_num2);
-          Node *temp = *heads;
-          while(temp->next != NULL && temp->line_num != line_num2){
-            temp = temp->next;
-          }
-          if(temp->line_num == line_num2){
-            // temp->ref_count--;
-            // if(temp->ref_count == 0){
-            //     free(temp->s);
-            //     temp->s = NULL;
-            // }
-            Rope_delete(temp->s[temp->ref_count]);
-          }
+          LL_complete_display(head[buf_id]);
+
           break;
         case 3:
-          LL_complete_display(*heads);
+          scanf("%d", &line_num);
+          char *s2 = " ";
+          Rope *r2 = Rope_new(s2, 2);
+          insertLine(&head[buf_id], r2, line_num);
           break;
         case 4:
-          printf("Enter String to search: ");
-          char *s2 = malloc(sizeof(char) * 100);
-          scanf("%s", s2);
-          // Call Search Function
+          scanf("%d", &line_num);
+          rmLine(&head[buf_id], line_num);
           break;
         case 5:
-          printf("Enter line number 1: ");
-          int line_num3;
-          scanf("%d", &line_num3);
-          printf("Enter line number 2: ");
-          int line_num4;
-          scanf("%d", &line_num4);
-
-          Node *temp1 = *heads;
-          Node *temp2 = *heads;
-          while(temp1->next != NULL && temp1->line_num != line_num3){
-            temp1 = temp1->next;
-          }
-          while(temp2->next != NULL && temp2->line_num != line_num4){
-            temp2 = temp2->next;
-          }
-
-          if(temp1->line_num == line_num3 && temp2->line_num == line_num4){
-            Rope *r1 = temp1->s[temp1->ref_count-1];
-            Rope *r2 = temp2->s[temp2->ref_count-1];
-            Rope *r3 = Rope_concat(r1, r2);
-            // printf("R3: \n");
-            // Rope_print(r3);
-            LL_insert(heads, line_num3, r3);
-          }
+          LL_file_save(&fhead, head[buf_id]);
+          printf("File saved successfully\n");
           break;
+        case 6:
+          scanf("%d", &ver);
+          LL_retrieve_version(fhead, ver);
+
+        case 7:
+          LL_retrieve_all(fhead);
         default:
           break;
       }

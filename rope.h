@@ -1,5 +1,3 @@
-#ifndef ROPE_H
-#define ROPE_H
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,6 +52,20 @@ void Check_if_changed(Node *head, int line_num, Rope *s);
 void LL_insert(Node **head, int line_num, Rope *s);
 void LL_complete_display(Node *head);
 
-void For_calls(Node **heads, clipNode **clipboard);
+void For_calls(Node ***heads, clipNode **clipboard);
 
-#endif
+void insertLine(Node **n, Rope *s, int line_num);
+void rmLine(Node **n, int line_num);
+
+
+typedef struct FLNode{
+    int version_num, line_count;
+    Rope **lines;
+    struct FLNode *next;
+} FLNode;
+
+void LL_file_save(FLNode **FLhead, Node *head);
+
+void LL_retrieve_version(FLNode *fhead, int version_num);
+void LL_retrieve_all(FLNode *fhead);
+
