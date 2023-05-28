@@ -1,0 +1,5 @@
+- [ ]
+- [ ] A double pointer array of linked lists
+- [ ] each linked list has a separate buffer
+- [ ] each buffer is identified with their index
+- [ ] 
