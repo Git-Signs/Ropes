@@ -1,0 +1,36 @@
+ls
+ls -F
+ls -l
+ls -a
+ls *[0-9]*
+mkdir dir1 ; ls
+mkdir dir2 dir3 ; ls
+mkdir -p /tmp/dir1/dir2 ; ls
+touch ./dir1/file ; ls
+mv ./dir1/file ./dir2/file ; ls
+pwd
+touch file1 ; ls
+rm -f file1 ; ls
+rm -rf dir1 ; ls
+rm -rf dir2 ; ls
+rmdir dir3 ; ls
+touch -t 0712250000 file1 ; ll
+tree  
+mkdir 1/File2 ; ls 1/
+find -name "s"
+find -iname "File1"
+find ./ -type f -name "*.conf"
+find ./ -size 50c
+find ./ -size -50c | head -n 10
+find ./ -size +700M
+find ./ -mtime 1
+find ./ -atime -1
+find ./ -ctime +3
+find ./ -mmin -1
+find ./ -perm 644
+find ./ -perm -644
+wc -l commands.txt || cat commands.txt | wc -l 
+wc -w < commands.txt
+wc -c < commands.txt
+wc -m < commands.txt
+wc -L < commands.txt
