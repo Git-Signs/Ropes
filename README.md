@@ -8,6 +8,8 @@ A powerful Vim plugin that enhances your editing experience with advanced featur
 - Atomic-level version control: Save your changes as separate versions with the `sf` shortcut, allowing you to revert to previous versions easily.
 - Buffer-independent operations: Perform operations across different buffers without switching between them.
 
+![f6deea3d-e060-4668-91dd-a9a8154ee673](https://github.com/Git-Signs/Ropes/assets/65607123/8d95c04b-788b-4496-b88a-2f600dc13232)
+
 ## Requirements
 
 Before running the plugin, make sure you have the following requirements installed:
