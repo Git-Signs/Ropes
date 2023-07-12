@@ -32,7 +32,20 @@ Before running the plugin, make sure you have the following requirements install
     pip install -r requirements.txt
     ```
 
+4. Add this line at the end of your .bashrc or .zshrc
+    ```bash 
+    alias nvim="NVIM_LISTEN_ADDRESS=/tmp/nvim nvim"
+    ```
+
+
 ## Running the Plugin 
+
+1. Run the Server file 
+    ```bash 
+    python3 final_nvim.py
+    ```
+2. Run Any instance of Neovim 
+    ```bash nvim filename```
 
 
 ## Shortcuts
