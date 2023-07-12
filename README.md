@@ -25,7 +25,7 @@ Before running the plugin, make sure you have the following requirements install
    git clone https://github.com/your-username/version-controller-vim-plugin.git
     ```
 
-2. Change to the plugin's directory
+2. Navigate to the plugin's directory
     ```bash
     cd Vim-Controller
     ```
@@ -59,4 +59,10 @@ The following shortcuts are available for the plugin:
 - `sf`: Save the current version.
 - `tt`: Concatenate the last two entries of the copy buffer.
 - `:w`: Save the file.
+
+## Project Preview
+![1](https://github.com/Git-Signs/Ropes/assets/79782433/c8db0fb3-1a42-4930-83c3-bd80780d9f48)
+<br>
+![2](https://github.com/Git-Signs/Ropes/assets/79782433/94d3fd0a-16f7-43c8-88e4-d2620b2385a9)
+
 
