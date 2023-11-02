@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/ropeclient.dir/lib/main.c.o CMakeFiles/ropeclient.dir/lib/rope.c.o -o bin/ropeclient 

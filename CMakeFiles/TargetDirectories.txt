@@ -1,0 +1,7 @@
+/root/Ropes/CMakeFiles/ropeclient.dir
+/root/Ropes/CMakeFiles/edit_cache.dir
+/root/Ropes/CMakeFiles/rebuild_cache.dir
+/root/Ropes/CMakeFiles/list_install_components.dir
+/root/Ropes/CMakeFiles/install.dir
+/root/Ropes/CMakeFiles/install/local.dir
+/root/Ropes/CMakeFiles/install/strip.dir

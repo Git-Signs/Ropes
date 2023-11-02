@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.12)
+make_minimum_required(VERSION 3.22)
 
 project(VimGuardian VERSION 1.0)
 

@@ -10,6 +10,7 @@ void For_calls(Node ***heads, clipNode **clipboard){
 
   int buf_id;
   Node **head = *heads;
+  printf("===ROPES IMPLEMENTATION===");
 
   while (1){
     //for buffer

@@ -51,7 +51,10 @@ nvim.command(cmd)
 cmd = "sign define addline numhl=CustomAdd"
 nvim.command(cmd)
 
-proc = subprocess.Popen(['./a.out'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
+proc = subprocess.Popen(['./ropeclient'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, universal_newlines=True)
+
+po = proc.stdout.readline()
+
 while True:
     sd = nvim.next_message()
     print(sd)
